@@ -5,7 +5,6 @@ import OperationIntelligence from '../components/OperationIntelligence'
 import Products from '../components/Products'
 import UseCases from '../components/UseCases'
 import ConnectedX from '../components/ConnectedX'
-import Contact from '../components/Contact'
 import type { Translations, Lang } from '../i18n/translations'
 
 interface Props {
