@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Moon, Sun, Menu, X } from 'lucide-react'
 import type { Lang, Translations } from '../i18n/translations'
@@ -14,6 +15,9 @@ interface Props {
 export default function Navbar({ isDark, onToggleTheme, lang, onToggleLang, tr }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const location = useLocation()
+
+  const isDraft2 = location.pathname === '/draft2'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -26,7 +30,6 @@ export default function Navbar({ isDark, onToggleTheme, lang, onToggleLang, tr }
     { label: tr.nav.products, href: '#products' },
     { label: tr.nav.technology, href: '#technology' },
     { label: tr.nav.vision, href: '#vision' },
-    { label: tr.nav.contact, href: '#contact' },
   ]
 
   return (
@@ -42,13 +45,12 @@ export default function Navbar({ isDark, onToggleTheme, lang, onToggleLang, tr }
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-            <span className="text-white font-bold text-sm">N</span>
-          </div>
-          <span className={`font-bold text-lg tracking-tight transition-colors ${scrolled ? 'text-gray-900 dark:text-white' : 'text-white'}`}>
-            n3n<span className="text-blue-400">.ai</span>
-          </span>
+        <a href="#" className="flex items-center group">
+          <img
+            src="/logo-n3n.png"
+            alt="N3N"
+            className={`h-7 transition-all ${scrolled ? 'dark:invert' : 'invert'}`}
+          />
         </a>
 
         {/* Desktop nav */}
@@ -64,6 +66,18 @@ export default function Navbar({ isDark, onToggleTheme, lang, onToggleLang, tr }
               {link.label}
             </a>
           ))}
+          <Link
+            to={isDraft2 ? '/' : '/draft2'}
+            className={`text-sm font-semibold px-3 py-1 rounded-full border transition-colors ${
+              isDraft2
+                ? 'border-blue-500 text-blue-500 bg-blue-500/10 hover:bg-blue-500/20'
+                : scrolled
+                  ? 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-blue-400 hover:text-blue-500'
+                  : 'border-white/30 text-gray-200 hover:border-white/60 hover:text-white'
+            }`}
+          >
+            {isDraft2 ? (lang === 'ko' ? '시안 1' : 'Draft 1') : (lang === 'ko' ? '시안 2' : 'Draft 2')}
+          </Link>
         </nav>
 
         {/* Controls */}
@@ -93,13 +107,6 @@ export default function Navbar({ isDark, onToggleTheme, lang, onToggleLang, tr }
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-
-          <a
-            href="#contact"
-            className="hidden md:inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg transition-colors"
-          >
-            {tr.nav.cta}
-          </a>
 
           <button
             onClick={() => setMobileOpen((v) => !v)}
@@ -131,13 +138,13 @@ export default function Navbar({ isDark, onToggleTheme, lang, onToggleLang, tr }
                   {link.label}
                 </a>
               ))}
-              <a
-                href="#contact"
+              <Link
+                to={isDraft2 ? '/' : '/draft2'}
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg transition-colors"
+                className="text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors"
               >
-                {tr.nav.cta}
-              </a>
+                {isDraft2 ? (lang === 'ko' ? '시안 1' : 'Draft 1') : (lang === 'ko' ? '시안 2' : 'Draft 2')}
+              </Link>
             </nav>
           </motion.div>
         )}

@@ -24,7 +24,7 @@ export default function About({ tr }: Props) {
     <section id="about" className="py-28 bg-white dark:bg-gray-950 relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern opacity-40 dark:opacity-20" />
 
-      <div ref={ref} className="relative max-w-7xl mx-auto px-6">
+      <div ref={ref} className="relative max-w-7xl mx-auto px-8 md:px-16 lg:px-24">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left — text */}
           <motion.div
@@ -42,11 +42,11 @@ export default function About({ tr }: Props) {
             <p className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed mb-8">{tr.about.body}</p>
 
             {/* Feature chips — compact version of old cards */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-nowrap gap-2">
               {tr.about.cards.map((card) => (
                 <span
                   key={card.title}
-                  className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900"
+                  className="px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 whitespace-nowrap shrink-0"
                 >
                   {card.title}
                 </span>

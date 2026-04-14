@@ -5,14 +5,7 @@ import type { Translations } from '../i18n/translations'
 
 interface Props { tr: Translations }
 
-const badgeColors: Record<string, string> = {
-  '물류': 'bg-blue-600', '도시 운영': 'bg-emerald-600', '데이터센터': 'bg-violet-600',
-  '생산공정': 'bg-orange-600', '서비스 운영': 'bg-cyan-600', '스마트시티': 'bg-indigo-600',
-  'IT 인프라': 'bg-violet-600', '산업현장': 'bg-amber-600', '공공인프라': 'bg-teal-600',
-  'Logistics': 'bg-blue-600', 'Urban Ops': 'bg-emerald-600', 'Data Centers': 'bg-violet-600',
-  'Production': 'bg-orange-600', 'Service Ops': 'bg-cyan-600', 'Smart City': 'bg-indigo-600',
-  'IT Infra': 'bg-violet-600', 'Industrial': 'bg-amber-600', 'Public Infra': 'bg-teal-600',
-}
+const BADGE_CLASS = 'bg-gray-900/70 backdrop-blur-sm'
 
 const VISIBLE = 3
 
@@ -30,7 +23,7 @@ export default function UseCases({ tr }: Props) {
 
   return (
     <section className="py-28 bg-gray-50 dark:bg-gray-950 overflow-hidden">
-      <div ref={ref} className="max-w-7xl mx-auto px-6">
+      <div ref={ref} className="max-w-7xl mx-auto px-8 md:px-16 lg:px-24">
         {/* Header + arrows */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -73,7 +66,7 @@ export default function UseCases({ tr }: Props) {
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visible.map((item, i) => {
-            const badgeColor = badgeColors[item.category] || 'bg-gray-600'
+            const badgeColor = BADGE_CLASS
             return (
               <motion.article
                 key={`${page}-${i}`}

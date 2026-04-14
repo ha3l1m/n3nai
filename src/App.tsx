@@ -1,47 +1,25 @@
-import { useState, useCallback } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { useTheme } from './hooks/useTheme'
 import { useLang } from './hooks/useLang'
-import LoadingScreen from './components/LoadingScreen'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Industries from './components/Industries'
-import About from './components/About'
-import ConnectingThings from './components/ConnectingThings'
-import OperationIntelligence from './components/OperationIntelligence'
-import Products from './components/Products'
-import UseCases from './components/UseCases'
-import Technology from './components/Technology'
-import Vision from './components/Vision'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
+import LandingPage from './pages/LandingPage'
+import Draft2Page from './pages/Draft2Page'
 import './index.css'
 
 export default function App() {
   const { isDark, toggle: toggleTheme } = useTheme()
   const { lang, tr, toggle: toggleLang } = useLang()
-  const [loaded, setLoaded] = useState(false)
-
-  const handleLoadComplete = useCallback(() => setLoaded(true), [])
 
   return (
     <div className={isDark ? 'dark' : ''}>
-      {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
-
-      <div className={`transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'} bg-white dark:bg-gray-950`}>
+      <div className="bg-white dark:bg-gray-950">
         <Navbar isDark={isDark} onToggleTheme={toggleTheme} lang={lang} onToggleLang={toggleLang} tr={tr} />
-        <main>
-          <Hero tr={tr} />
-          <Industries tr={tr} />
-          <About tr={tr} />
-          <ConnectingThings tr={tr} />
-          <OperationIntelligence tr={tr} />
-          <Products tr={tr} />
-          <UseCases tr={tr} />
-          <Technology tr={tr} />
-          <Vision tr={tr} />
-          <Contact tr={tr} />
-        </main>
-        <Footer tr={tr} />
+        <Routes>
+          <Route path="/" element={<LandingPage tr={tr} lang={lang} />} />
+          <Route path="/draft2" element={<Draft2Page tr={tr} lang={lang} />} />
+        </Routes>
+        <Footer />
       </div>
     </div>
   )

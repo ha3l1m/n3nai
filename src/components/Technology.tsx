@@ -5,6 +5,13 @@ import type { Translations } from '../i18n/translations'
 
 const icons = [Brain, Network, Server, GitBranch, Globe, Lock]
 
+const stepColors = [
+  { text: 'text-blue-600 dark:text-blue-400', border: 'border-blue-500/50' },
+  { text: 'text-cyan-600 dark:text-cyan-400', border: 'border-cyan-500/50' },
+  { text: 'text-indigo-600 dark:text-indigo-400', border: 'border-indigo-500/50' },
+  { text: 'text-violet-600 dark:text-violet-400', border: 'border-violet-500/50' },
+]
+
 interface Props { tr: Translations }
 
 export default function Technology({ tr }: Props) {
@@ -17,7 +24,7 @@ export default function Technology({ tr }: Props) {
     <section id="technology" className="py-28 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern opacity-60 dark:opacity-20" />
 
-      <div ref={ref} className="relative max-w-7xl mx-auto px-6">
+      <div ref={ref} className="relative max-w-7xl mx-auto px-8 md:px-16 lg:px-24">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -35,7 +42,7 @@ export default function Technology({ tr }: Props) {
           <p className="mt-5 text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-base leading-relaxed">{tr.tech.sub}</p>
         </motion.div>
 
-        {/* Cards */}
+        {/* Tech cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20">
           {tr.tech.cards.map((item, i) => {
             const Icon = icons[i]
@@ -57,12 +64,12 @@ export default function Technology({ tr }: Props) {
           })}
         </div>
 
-        {/* Architecture */}
+        {/* Architecture pipeline */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="p-8 md:p-12 rounded-3xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-gray-800/40"
+          className="p-8 md:p-12 rounded-3xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-gray-800/40 mb-20"
         >
           <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-10">{tr.tech.arch}</h3>
 
@@ -94,6 +101,55 @@ export default function Technology({ tr }: Props) {
               </div>
             ))}
           </div>
+        </motion.div>
+
+        {/* How it works — 4 steps (merged from Vision) */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mb-16"
+        >
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-12">
+            {tr.vision.h2a}
+            <span className="animated-gradient">{tr.vision.h2b}</span>
+          </h3>
+
+          <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {tr.vision.steps.map((step, i) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.6 + i * 0.1 }}
+                className="text-center"
+              >
+                <div className={`w-12 h-12 rounded-2xl border-2 ${stepColors[i].border} mx-auto mb-4 flex items-center justify-center`}>
+                  <span className={`text-lg font-bold ${stepColors[i].text}`}>{String(i + 1).padStart(2, '0')}</span>
+                </div>
+                <h4 className={`text-base font-bold mb-2 ${stepColors[i].text}`}>{step.title}</h4>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.7 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-5"
+        >
+          {tr.vision.stats.map((s) => (
+            <div
+              key={s.label}
+              className="p-6 rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900/60 text-center"
+            >
+              <div className="text-3xl font-bold animated-gradient-slow mb-1">{s.value}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">{s.label}</div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

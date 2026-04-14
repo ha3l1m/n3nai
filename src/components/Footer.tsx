@@ -1,67 +1,25 @@
-import { GitBranch, Link2, ExternalLink } from 'lucide-react'
-import type { Translations } from '../i18n/translations'
-
-interface Props { tr: Translations }
-
-const SocialIcons = [GitBranch, Link2, ExternalLink]
-
-export default function Footer({ tr }: Props) {
+export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-950 dark:bg-black border-t border-gray-800 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">N</span>
-              </div>
-              <span className="text-white font-bold text-lg">
-                n3n<span className="text-blue-400">.ai</span>
-              </span>
-            </div>
-            <p className="text-gray-400 text-xs leading-relaxed mb-5">{tr.footer.desc}</p>
-            <div className="flex gap-3">
-              {SocialIcons.map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors"
-                >
-                  <Icon size={14} className="text-gray-400" />
-                </a>
-              ))}
-            </div>
+    <footer className="bg-[#1a1a1a] border-t border-gray-700/50">
+      <div className="max-w-7xl mx-auto px-6 py-6">
+        {/* Row 1: Logo + links */}
+        <div className="flex items-center gap-6 mb-4">
+          <img src="/logo-n3n.png" alt="N3N" className="h-5 invert shrink-0" />
+          <div className="flex items-center gap-1 text-xs text-gray-400">
+            <a href="#" className="hover:text-white transition-colors">서비스 이용약관</a>
+            <span className="text-gray-600 mx-1.5">|</span>
+            <a href="https://n3n.co.kr/000_privacy-policy" target="_blank" rel="noopener noreferrer" className="font-bold text-gray-300 hover:text-white transition-colors">개인정보처리방침</a>
+            <span className="text-gray-600 mx-1.5">|</span>
+            <a href="#contact" className="hover:text-white transition-colors">상담 문의</a>
           </div>
-
-          {/* Nav columns */}
-          {(Object.keys(tr.footer.cols) as Array<keyof typeof tr.footer.cols>).map((category) => (
-            <div key={category}>
-              <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">{category}</h4>
-              <ul className="flex flex-col gap-2.5">
-                {tr.footer.cols[category].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-gray-400 hover:text-gray-200 text-sm transition-colors">
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-6 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-xs">
-            {tr.footer.rights.replace('{year}', String(year))}
-          </p>
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-gray-400 text-xs">{tr.footer.status}</span>
-          </div>
+        {/* Row 2: Company info + copyright */}
+        <div className="text-[11px] text-gray-500 leading-[1.7]">
+          <p>서울특별시 강남구 봉은사로 411 (삼성동), 2층 엔쓰리엔 &nbsp;|&nbsp; Tel. 02-761-5805 &nbsp;|&nbsp; Fax. 02-554-5803 &nbsp;|&nbsp; Email. business@n3n.co.kr</p>
+          <p>&copy; 2017-{year} N3N Co., Ltd. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

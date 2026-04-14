@@ -18,7 +18,7 @@ export default function VideoSection({
   videoSrc,
   tint = 'rgba(5,10,24,0.75)',
   className = '',
-  fullHeight = true,
+  fullHeight = false,
 }: Props) {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })

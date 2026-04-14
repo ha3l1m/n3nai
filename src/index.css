@@ -37,7 +37,7 @@ body {
 }
 
 .animated-gradient {
-  background: linear-gradient(270deg, #60A5FA, #0066FF, #00D4FF, #38BDF8, #0066FF, #60A5FA);
+  background: linear-gradient(270deg, #94A3B8, #6482B9, #5B8CB5, #7DA0C4, #6482B9, #94A3B8);
   background-size: 400% 400%;
   animation: gradient-shift 6s ease infinite;
   -webkit-background-clip: text;
@@ -47,7 +47,7 @@ body {
 
 /* Slow pulse variant */
 .animated-gradient-slow {
-  background: linear-gradient(270deg, #93C5FD, #3B82F6, #06B6D4, #3B82F6, #93C5FD);
+  background: linear-gradient(270deg, #A8B8D0, #6B8BB5, #7A9EC2, #6B8BB5, #A8B8D0);
   background-size: 300% 300%;
   animation: gradient-shift 10s ease infinite;
   -webkit-background-clip: text;

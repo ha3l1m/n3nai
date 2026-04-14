@@ -23,7 +23,7 @@ export default function Industries({ tr }: Props) {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-6">
+      <div className="relative max-w-6xl mx-auto px-8 md:px-16 lg:px-24">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

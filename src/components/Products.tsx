@@ -18,8 +18,8 @@ export default function Products({ tr }: Props) {
   return (
     <div id="products">
       {/* ── INNOWATCH ── */}
-      <VideoSection tint="rgba(4,8,20,0.80)" fullHeight>
-        <div ref={refA} className="max-w-7xl mx-auto px-6 py-28 flex flex-col justify-center min-h-screen">
+      <VideoSection tint="rgba(4,8,20,0.80)">
+        <div ref={refA} className="max-w-6xl mx-auto px-10 md:px-20 lg:px-28 py-24">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left text */}
             <motion.div
@@ -27,18 +27,15 @@ export default function Products({ tr }: Props) {
               animate={inViewA ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/15 border border-blue-500/30 text-blue-400 text-xs font-bold tracking-widest mb-6">
-                INNOWATCH
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600/15 border border-blue-500/30 text-blue-400 text-xs font-bold tracking-widest mb-6">
+                INNOWATCH · 실시간 수천 개 동시 관제
               </div>
               <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
                 {tr.products.innowatch.headline}
                 <br />
                 <span className="animated-gradient">{tr.products.innowatch.headlineSub}</span>
               </h2>
-              <p className="text-gray-400 leading-relaxed mb-3 text-base">
-                <span className="text-blue-400 font-semibold">{tr.products.innowatch.tag}</span>
-              </p>
-              <p className="text-gray-400 leading-relaxed mb-10 text-base">{tr.products.innowatch.desc}</p>
+              <p className="text-gray-400 leading-relaxed mb-8 text-base">{tr.products.innowatch.desc}</p>
 
               {/* Feature list */}
               <div className="flex flex-col gap-5">
@@ -83,57 +80,86 @@ export default function Products({ tr }: Props) {
                   <span className="text-gray-400 text-xs ml-2">INNOWATCH — Live Video on Map</span>
                 </div>
                 {/* Mock map + feeds */}
-                <div className="p-4 relative bg-[#0A1628]" style={{ minHeight: 280 }}>
-                  {/* Fake map grid */}
-                  <div
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                      backgroundImage: 'linear-gradient(rgba(0,102,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,102,255,0.3) 1px, transparent 1px)',
-                      backgroundSize: '32px 32px',
-                    }}
-                  />
-                  {/* Fake camera feeds */}
-                  <div className="relative grid grid-cols-3 gap-2">
-                    {Array.from({ length: 6 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="aspect-video rounded-lg bg-gray-800/70 border border-gray-700/50 relative overflow-hidden"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-transparent" />
-                        <div className="absolute top-1.5 left-1.5 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                          <span className="text-[8px] text-gray-400 font-mono">CAM-{String(i + 1).padStart(3,'0')}</span>
+                <div className="relative bg-[#0A1628]">
+                  {/* Map area with GIS-style background */}
+                  <div className="relative p-4" style={{ minHeight: 200 }}>
+                    {/* Satellite map background */}
+                    <img
+                      src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800&q=80"
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover opacity-30"
+                    />
+                    <div className="absolute inset-0 bg-[#0A1628]/60" />
+                    <div
+                      className="absolute inset-0 opacity-10"
+                      style={{
+                        backgroundImage: 'linear-gradient(rgba(0,102,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,102,255,0.3) 1px, transparent 1px)',
+                        backgroundSize: '24px 24px',
+                      }}
+                    />
+                    {/* Map pins with pulse */}
+                    {[
+                      { x: '20%', y: '30%' }, { x: '45%', y: '25%' }, { x: '70%', y: '40%' },
+                      { x: '35%', y: '60%' }, { x: '60%', y: '65%' }, { x: '80%', y: '55%' },
+                    ].map((pin, i) => (
+                      <div key={i} className="absolute" style={{ left: pin.x, top: pin.y }}>
+                        <div className="w-2 h-2 rounded-full bg-blue-400 relative">
+                          <div className="absolute -inset-1.5 rounded-full bg-blue-400/20 animate-ping" style={{ animationDuration: `${2 + i * 0.3}s` }} />
                         </div>
-                        {/* Fake video noise */}
-                        <div className="absolute inset-0 opacity-10" style={{ background: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 4px)' }} />
+                      </div>
+                    ))}
+                    {/* Map overlay — road-like lines */}
+                    <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 100 100">
+                      <path d="M10,50 Q30,20 50,45 T90,30" stroke="rgba(59,130,246,0.5)" fill="none" strokeWidth="0.5" />
+                      <path d="M20,80 Q50,60 80,70" stroke="rgba(59,130,246,0.3)" fill="none" strokeWidth="0.3" />
+                    </svg>
+                  </div>
+
+                  {/* Camera feeds strip */}
+                  <div className="grid grid-cols-3 gap-px bg-gray-800/30 border-t border-blue-900/40">
+                    {[
+                      'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&q=70',
+                      'https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=400&q=70',
+                      'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400&q=70',
+                    ].map((src, i) => (
+                      <div key={i} className="aspect-video bg-[#080e1c] relative overflow-hidden">
+                        <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+                        <div className="absolute inset-0 bg-[#080e1c]/40" />
+                        <div className="absolute top-1 left-1.5 flex items-center gap-1 z-10">
+                          <span className="w-1 h-1 rounded-full bg-red-400 animate-pulse" />
+                          <span className="text-[7px] text-gray-400 font-mono">CAM-{String(i + 1).padStart(3,'0')}</span>
+                        </div>
+                        <div className="absolute bottom-1 right-1.5 text-[7px] text-gray-500 font-mono z-10">
+                          {['서울 강남', '부산 해운대', '인천 송도'][i]}
+                        </div>
                       </div>
                     ))}
                   </div>
-                  {/* Fake map pin */}
-                  <div className="absolute bottom-6 right-6 flex flex-col gap-2">
-                    {[0,1,2].map(i => (
-                      <div key={i} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                        <div className="h-px w-12 bg-blue-500/40" />
-                        <div className="w-1.5 h-1.5 rounded bg-blue-600/60" />
+
+                  {/* Bottom status */}
+                  <div className="flex items-center justify-between px-4 py-2 border-t border-blue-900/40 bg-[#080e1c]">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                        <span className="text-[9px] text-gray-400">정상</span>
                       </div>
-                    ))}
+                      <span className="text-[9px] text-gray-600">|</span>
+                      <span className="text-[9px] text-gray-500">지연: 8ms</span>
+                      <span className="text-[9px] text-gray-600">|</span>
+                      <span className="text-[9px] text-gray-500">6 / 12 feeds</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Floating badge */}
-              <div className="absolute -top-4 -right-4 px-3 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-xl shadow-blue-600/30">
-                LIVE · {tr.products.innowatch.liveCount}
-              </div>
             </motion.div>
           </div>
         </div>
       </VideoSection>
 
       {/* ── WIZEYE ── */}
-      <VideoSection tint="rgba(2,12,24,0.83)" fullHeight>
-        <div ref={refB} className="max-w-7xl mx-auto px-6 py-28 flex flex-col justify-center min-h-screen">
+      <VideoSection tint="rgba(2,12,24,0.83)">
+        <div ref={refB} className="max-w-6xl mx-auto px-10 md:px-20 lg:px-28 py-24">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left: mock UI */}
             <motion.div
@@ -151,52 +177,87 @@ export default function Products({ tr }: Props) {
                   </div>
                   <span className="text-gray-400 text-xs ml-2">WIZEYE — AI Vision Analytics</span>
                 </div>
-                <div className="p-5 bg-[#040C18]">
-                  {/* Fake AI detection view */}
-                  <div className="relative aspect-video rounded-lg bg-gray-900 overflow-hidden mb-4 border border-gray-800/50">
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 to-transparent" />
+                <div className="bg-[#040C18]">
+                  {/* AI detection viewport */}
+                  <div className="relative aspect-[16/10] bg-gray-900 overflow-hidden border-b border-gray-800/50">
+                    {/* CCTV background footage */}
+                    <img
+                      src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=70"
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover opacity-25"
+                    />
+                    <div className="absolute inset-0 bg-[#040C18]/50" />
                     {/* Detection boxes */}
                     {[
-                      { top: '20%', left: '15%', w: '20%', h: '40%', color: 'border-cyan-400', label: 'PERSON' },
-                      { top: '30%', left: '50%', w: '25%', h: '35%', color: 'border-yellow-400', label: 'VEHICLE' },
-                      { top: '60%', left: '25%', w: '15%', h: '25%', color: 'border-green-400', label: 'OBJECT' },
+                      { top: '15%', left: '10%', w: '22%', h: '50%', color: 'border-cyan-400', label: 'PERSON', conf: '98.2%' },
+                      { top: '25%', left: '48%', w: '30%', h: '40%', color: 'border-yellow-400', label: 'VEHICLE', conf: '96.7%' },
+                      { top: '55%', left: '22%', w: '18%', h: '30%', color: 'border-green-400', label: 'OBJECT', conf: '94.1%' },
                     ].map((box) => (
                       <div
                         key={box.label}
-                        className={`absolute border-2 ${box.color} rounded`}
+                        className={`absolute border-2 ${box.color}`}
                         style={{ top: box.top, left: box.left, width: box.w, height: box.h }}
                       >
-                        <span className={`text-[8px] font-bold px-1 py-px ${box.color.replace('border-', 'text-')}`}>
-                          {box.label}
-                        </span>
+                        <div className={`absolute -top-4 left-0 flex items-center gap-1 ${box.color.replace('border-', 'text-')}`}>
+                          <span className="text-[8px] font-bold bg-gray-900/80 px-1 py-px">{box.label}</span>
+                          <span className="text-[7px] opacity-70">{box.conf}</span>
+                        </div>
+                        {/* Tracking crosshair */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className={`w-1 h-1 rounded-full ${box.color.replace('border-', 'bg-')} opacity-60`} />
+                        </div>
                       </div>
                     ))}
-                    {/* Scan line animation */}
+                    {/* Scan line */}
                     <motion.div
-                      className="absolute left-0 right-0 h-px bg-cyan-400/40"
-                      animate={{ top: ['10%', '90%', '10%'] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                      className="absolute left-0 right-0 h-px bg-cyan-400/30"
+                      animate={{ top: ['5%', '95%', '5%'] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
                     />
+                    {/* Corner brackets for detection area */}
+                    <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyan-500/30" />
+                    <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-cyan-500/30" />
+                    <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-cyan-500/30" />
+                    <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-cyan-500/30" />
                   </div>
-                  {/* Stats row */}
-                  <div className="grid grid-cols-3 gap-3">
+
+                  {/* Stats strip */}
+                  <div className="grid grid-cols-3 border-b border-gray-800/50">
                     {[
                       { label: 'Objects', value: '1,247' },
                       { label: 'Accuracy', value: '99.3%' },
                       { label: 'FPS', value: '30' },
-                    ].map((s) => (
-                      <div key={s.label} className="rounded-lg bg-gray-800/60 p-3 text-center border border-gray-700/40">
-                        <div className="text-cyan-400 font-bold text-sm">{s.value}</div>
-                        <div className="text-gray-400 text-[10px] mt-0.5">{s.label}</div>
+                    ].map((s, i) => (
+                      <div key={s.label} className={`py-2.5 px-3 text-center ${i < 2 ? 'border-r border-gray-800/50' : ''}`}>
+                        <span className="text-cyan-400 font-bold text-sm">{s.value}</span>
+                        <span className="text-gray-500 text-[10px] ml-1.5">{s.label}</span>
                       </div>
                     ))}
+                  </div>
+
+                  {/* Real-time event log */}
+                  <div className="px-4 py-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] text-gray-500 font-mono">EVENT LOG</span>
+                      <span className="text-[9px] text-cyan-400">LIVE</span>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      {[
+                        { time: '14:23:07', event: '이상 행동 감지 — Zone A', level: 'text-amber-400' },
+                        { time: '14:22:51', event: '객체 추적 완료 — ID #847', level: 'text-green-400' },
+                        { time: '14:22:34', event: '예측 알림 — 혼잡도 임계치 도달', level: 'text-red-400' },
+                      ].map((log) => (
+                        <div key={log.time} className="flex items-center gap-2">
+                          <span className="text-[9px] text-gray-600 font-mono shrink-0">{log.time}</span>
+                          <span className={`text-[9px] ${log.level}`}>●</span>
+                          <span className="text-[10px] text-gray-400 truncate">{log.event}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -bottom-4 -left-4 px-3 py-2 rounded-xl bg-cyan-600/90 text-white text-xs font-bold shadow-xl shadow-cyan-600/30">
-                AI DETECTING · LIVE
-              </div>
             </motion.div>
 
             {/* Right text */}
@@ -206,18 +267,15 @@ export default function Products({ tr }: Props) {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="order-1 lg:order-2"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-600/15 border border-cyan-500/30 text-cyan-400 text-xs font-bold tracking-widest mb-6">
-                WIZEYE
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-600/15 border border-cyan-500/30 text-cyan-400 text-xs font-bold tracking-widest mb-6">
+                WIZEYE · AI 실시간 감지
               </div>
               <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
                 {tr.products.wizeye.headline}
                 <br />
                 <span className="animated-gradient">{tr.products.wizeye.headlineSub}</span>
               </h2>
-              <p className="text-gray-400 leading-relaxed mb-3 text-base">
-                <span className="text-cyan-400 font-semibold">{tr.products.wizeye.tag}</span>
-              </p>
-              <p className="text-gray-400 leading-relaxed mb-10 text-base">{tr.products.wizeye.desc}</p>
+              <p className="text-gray-400 leading-relaxed mb-8 text-base">{tr.products.wizeye.desc}</p>
 
               <div className="flex flex-col gap-5">
                 {tr.products.wizeye.features.map((f, i) => {

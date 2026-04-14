@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Play } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import type { Translations } from '../i18n/translations'
 
-interface Props { tr: Translations }
+interface Props { tr: Translations; hideCta?: boolean }
 
-export default function Hero({ tr }: Props) {
+export default function Hero({ tr, hideCta }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
@@ -82,27 +82,22 @@ export default function Hero({ tr }: Props) {
         </motion.p>
 
         {/* 4. CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-        >
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 px-7 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all duration-200 shadow-xl shadow-blue-600/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 text-sm"
+        {!hideCta && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
-            {tr.hero.cta1}
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-          <a
-            href="#operation"
-            className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-white/8 hover:bg-white/12 text-white font-medium rounded-xl transition-all duration-200 backdrop-blur-sm border border-white/15 text-sm"
-          >
-            <Play size={14} className="fill-white" />
-            {tr.hero.cta2}
-          </a>
-        </motion.div>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2.5 px-9 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all duration-200 shadow-2xl shadow-blue-600/30 hover:shadow-blue-500/50 hover:-translate-y-1 text-base"
+            >
+              {tr.hero.cta1}
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+          </motion.div>
+        )}
 
         {/* 5. Stats — secondary, below CTA */}
         <motion.div
@@ -112,10 +107,10 @@ export default function Hero({ tr }: Props) {
           className="flex flex-col sm:flex-row items-center justify-center gap-10 pt-8 border-t border-white/10"
         >
           {[
-            { value: '99.9%', label: tr.hero.stat1 },
-            { value: '<10ms', label: tr.hero.stat2 },
-            { value: '200+', label: tr.hero.stat3 },
-            { value: '24/7', label: tr.hero.stat4 },
+            { value: '100억+', label: '일일 분석 프레임' },
+            { value: '500+', label: '카메라 연동' },
+            { value: '40ms', label: '평균 감지 시간' },
+            { value: '99.7%', label: '정확도' },
           ].map((s) => (
             <div key={s.label} className="text-center">
               <div className="text-xl font-bold text-white/90 tabular-nums">{s.value}</div>
