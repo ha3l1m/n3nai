@@ -47,7 +47,7 @@ export default function Navbar({ isDark, onToggleTheme, lang, onToggleLang, tr }
         {/* Logo */}
         <a href="#" className="flex items-center group">
           <img
-            src="/logo-n3n.png"
+            src={`${import.meta.env.BASE_URL}logo-n3n.png`}
             alt="N3N"
             className={`h-7 transition-all ${scrolled ? 'dark:invert' : 'invert'}`}
           />

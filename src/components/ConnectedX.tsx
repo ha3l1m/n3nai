@@ -79,7 +79,7 @@ export default function ConnectedX({ lang }: Props) {
           </div>
           {/* Image */}
           <img
-            src="/connected-x.jpg"
+            src={`${import.meta.env.BASE_URL}connected-x.jpg`}
             alt="Connected X Active Learning Cycle"
             className="w-full h-auto"
           />

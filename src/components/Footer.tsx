@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-6">
         {/* Row 1: Logo + links */}
         <div className="flex items-center gap-6 mb-4">
-          <img src="/logo-n3n.png" alt="N3N" className="h-5 invert shrink-0" />
+          <img src={`${import.meta.env.BASE_URL}logo-n3n.png`} alt="N3N" className="h-5 invert shrink-0" />
           <div className="flex items-center gap-1 text-xs text-gray-400">
             <a href="#" className="hover:text-white transition-colors">서비스 이용약관</a>
             <span className="text-gray-600 mx-1.5">|</span>

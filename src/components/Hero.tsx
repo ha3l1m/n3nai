@@ -20,7 +20,7 @@ export default function Hero({ tr, hideCta }: Props) {
           className="w-full h-full object-cover scale-105"
           poster="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1920&q=80"
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}hero-video.mp4`} type="video/mp4" />
         </video>
         {/* Layer 1: Heavy base darken */}
         <div className="absolute inset-0 bg-[#030812]/80" />
